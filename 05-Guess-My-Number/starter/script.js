@@ -16,6 +16,10 @@ document.querySelector('.again').addEventListener('click', function(){
     document.querySelector('.number').style.width = '15rem'
 })
 
+const displayMessage = function(message) {
+    document.querySelector('.message').textContent = message
+}
+
 document.querySelector('.check').addEventListener('click', function(){
     const guess = parseInt(document.querySelector('.guess').value)
     console.log(guess, typeof guess)
@@ -23,11 +27,11 @@ document.querySelector('.check').addEventListener('click', function(){
 
 //No INPUT
     if(!guess) {
-        document.querySelector('.message').textContent = 'NO NUMBER!'
-
+        // document.querySelector('.message').textContent = 'NO NUMBER!'
+        displayMessage('NO NUMBER!')
         //when player wins
     } else if (guess === secretNumber) {
-        document.querySelector('.message').textContent = 'RIGHT!!!'
+        displayMessage('RIGHT!!!')
         document.querySelector('.number').textContent = secretNumber
         document.querySelector('body').style.backgroundColor = 'blue'
         document.querySelector('.number').style.width = '30rem'
@@ -37,27 +41,15 @@ document.querySelector('.check').addEventListener('click', function(){
             document.querySelector('.highscore').textContent = score
         }
 
-    } else if (guess > secretNumber) {
+    } else if (guess !== secretNumber) {
         if (score > 1) {
-            document.querySelector('.message').textContent = 'NUMBER TOO HIGH!'
+            document.querySelector('.message').textContent = guess > secretNumber ? 'NUMBER TOO HIGH!' : document.querySelector('.message').textContent = 'NUMBER TOO low!'
+            
             score--
-
-            document.querySelector('.score').textContent = score  
+            document.querySelector('.score').textContent = score 
         } else {
             document.querySelector('.message').innerHTML = 'YOU LOST THE GAME :(.'
             document.querySelector('.score') = 0
         }
-    } else if (guess < secretNumber) {
-        if (score > 1) {
-            document.querySelector('.message').textContent = 'NUMBER TOO low!'
-            score--
-            document.querySelector('.score').textContent = score  
-        } else {
-            document.querySelector('.message').innerHTML = 'YOU LOST THE GAME :(.'
-            document.querySelector('.score').textContent = 0
-        }
-
-
     }
 })
-
